@@ -7,6 +7,7 @@ use Cloudways\Notification\NotificationFacade;
 use Cloudways\Notification\Email;
 use Cloudways\Notification\Slack;
 use PHPMailer\PHPMailer\PHPMailer;
+use Jenssegers\Blade\Blade;
 
 class NotificationServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,10 @@ class NotificationServiceProvider extends ServiceProvider
     {   
         $this->app->singleton(NotificationFacade::class, function ($app) {
             return new NotificationFacade([
-                new Email($this->configureEmailClient()), 
+                new Email($this->configureEmailClient(), new Blade(
+                    base_path('templates/messages'),
+                    base_path('templates/cache')
+                )), 
                 new Slack()
             ]);
         });
