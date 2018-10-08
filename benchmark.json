@@ -1,0 +1,8 @@
+{
+	"id": 1,
+	"cpu_usage": 40,
+	"load_average_15": 4.6,
+	"wp_version_installed": 4.2,
+	"wp_version_available": 4.5,
+	"memory_peak_usage": 5242880
+}

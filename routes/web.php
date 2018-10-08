@@ -12,3 +12,4 @@
 */
 
 $router->post('/stats', 'StatsController@store');
+$router->get('/notifications/{limit}', 'NotificationsController@index');

@@ -6,8 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Cloudways\Notification\NotificationFacade;
 use Cloudways\Notification\Email;
 use Cloudways\Notification\Slack;
+use Cloudways\Notification\Database;
 use PHPMailer\PHPMailer\PHPMailer;
 use Jenssegers\Blade\Blade;
+use App\Notification;
 
 class NotificationServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,11 @@ class NotificationServiceProvider extends ServiceProvider
                     base_path('templates/messages'),
                     base_path('templates/cache')
                 )), 
-                new Slack()
+                new Slack(),
+                new Database(new Notification(), new Blade(
+                    base_path('templates/messages'),
+                    base_path('templates/cache')
+                ))
             ]);
         });
     }

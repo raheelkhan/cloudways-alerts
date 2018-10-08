@@ -30,6 +30,15 @@ class ServerRepository implements RepositoryInterface
     }
 
     /**
+     * @param int $offset
+     * @param int $limit
+     */
+    public function index(int $limit)
+    {
+        return [];
+    }
+
+    /**
      * @return array
      */
     public function getColumns(): array

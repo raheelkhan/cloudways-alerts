@@ -8,13 +8,26 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Jobs\Notification;
 
 class StatsController extends Controller
-{
+{    
+    /**
+     * @var RepositoryInterface
+     */
+    private $repo;
+    
+    /**
+     * @param RepositoryInterface $repo
+     */
+    public function __construct(RepositoryInterface $repo)
+    {
+        $this->repo = $repo;
+    }
+
     /**
      * @param Request $request request object
      * @param RepositoryInterface $repo
      * @return void
      */
-    public function store(Request $request, RepositoryInterface $repo)
+    public function store(Request $request)
     {
         $rules = [
             'id' => 'integer',
@@ -29,8 +42,8 @@ class StatsController extends Controller
         
         $stats = [];
         try {
-            $server = $repo->show($request->id);
-            foreach($repo->getColumns() as $column) {
+            $server = $this->repo->show($request->id);
+            foreach($this->repo->getColumns() as $column) {
                 $stats[$column] = $server->{$column};
             }
         } catch (ModelNotFoundException $e) {
